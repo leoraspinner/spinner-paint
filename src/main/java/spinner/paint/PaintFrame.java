@@ -8,7 +8,7 @@ public class PaintFrame extends JFrame {
 
     private final DrawingComponent canvas = new DrawingComponent();
     private final Color[] predefinedColors = {Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW, Color.BLACK};
-    private final String[] toolNames = {"Draw", "Line", "Eraser", "Clear"};
+    private final String[] toolNames = {"Draw", "Line", "Eraser"};
 
     public PaintFrame() {
         setTitle("Paint");
