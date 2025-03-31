@@ -7,7 +7,7 @@ import java.awt.event.*;
 public class PaintFrame extends JFrame {
 
     private final DrawingComponent canvas = new DrawingComponent();
-    private final Color[] predefinedColors = {Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW, Color.BLACK};
+    private final JColorChooser colorChooser = new JColorChooser();
     private final String[] toolNames = {"Draw", "Line", "Eraser"};
 
     public PaintFrame() {
@@ -20,16 +20,22 @@ public class PaintFrame extends JFrame {
         JPanel toolPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         add(toolPanel, BorderLayout.NORTH);
 
-        // Color buttons
-        for (Color color : predefinedColors) {
-            JButton colorButton = createColorButton(color);
+        //Basic color buttons
+        Color[] basicColors = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.BLACK};
+        for (Color color : basicColors) {
+            JButton colorButton = new JButton();
+            colorButton.setBackground(color);
+            colorButton.setPreferredSize(new Dimension(25, 25)); // Smaller buttons
+            colorButton.setOpaque(true);
+            colorButton.setBorderPainted(false);
+            colorButton.addActionListener(e -> canvas.setDrawingColor(color));
             toolPanel.add(colorButton);
         }
 
         // More Colors button
-        JButton moreColorsButton = new JButton("More Colors");
-        moreColorsButton.addActionListener(this::openColorChooser);
-        toolPanel.add(moreColorsButton);
+        JButton colorChooserButton = new JButton("More Colors");
+        colorChooserButton.addActionListener(this::openColorChooser);
+        toolPanel.add(colorChooserButton);
 
         // Tool buttons
         for (String toolName : toolNames) {
@@ -59,16 +65,6 @@ public class PaintFrame extends JFrame {
                 canvas.handleMouseDragged(e.getX(), e.getY());
             }
         });
-    }
-
-    private JButton createColorButton(Color color) {
-        JButton button = new JButton();
-        button.setBackground(color);
-        button.setOpaque(true);
-        button.setBorderPainted(false);
-        button.setPreferredSize(new Dimension(30, 30));
-        button.addActionListener(e -> canvas.setDrawingColor(color));
-        return button;
     }
 
     private JButton createToolButton(String toolName) {
