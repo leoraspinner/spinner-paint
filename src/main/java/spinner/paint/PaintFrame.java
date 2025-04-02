@@ -6,10 +6,13 @@ import java.awt.event.*;
 
 import static spinner.paint.DrawingComponent.*;
 
+
+
 public class PaintFrame extends JFrame {
 
     private final DrawingComponent canvas = new DrawingComponent();
     private final String[] toolNames = {DRAW, LINE, ERASER};
+    private PencilTool pencilTool = new PencilTool();
 
     public PaintFrame() {
         setTitle("Paint");
@@ -51,7 +54,8 @@ public class PaintFrame extends JFrame {
         canvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                canvas.handleMousePressed(e.getX(), e.getY());
+                //canvas.handleMousePressed(e.getX(), e.getY());
+                pencilTool.pressed(canvas.getImage().getGraphics(), e.getX(), e.getY());
             }
 
             @Override
@@ -60,10 +64,15 @@ public class PaintFrame extends JFrame {
             }
         });
 
-        canvas.addMouseMotionListener(new MouseAdapter() {
+        canvas.addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                canvas.handleMouseDragged(e.getX(), e.getY());
+//                canvas.handleMouseDragged(e.getX(), e.getY());
+                Graphics g = canvas.getImage().getGraphics();
+                g.setColor(Color.BLACK);
+                pencilTool.dragged(g, e.getX(), e.getY());
+                canvas.repaint();
+
             }
         });
     }

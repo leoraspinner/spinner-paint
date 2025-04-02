@@ -4,12 +4,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/*
+ * Draw the BufferedImage to the screen
+ * */
+
 public class DrawingComponent extends JComponent {
+    //should only be drawing other methods to the screen
     public static final String DRAW = "Draw";
     public static final String LINE = "Line";
     public static final String ERASER = "Eraser";
 
-    private final BufferedImage image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_RGB);
+    private final BufferedImage image = new BufferedImage(
+            800,
+            600,
+            BufferedImage.TYPE_INT_RGB);
     private int oldx = -1;
     private int oldy = -1;
     private int startX = -1; // For Line Tool
@@ -18,12 +26,15 @@ public class DrawingComponent extends JComponent {
     private int currentY = -1; //or preview
     private String currentTool = DRAW;
     private Color drawingColor = Color.BLACK;
+    //private Tool currentTool;
+    //Private PencilTool penciltool =
 
     public DrawingComponent() {
         Graphics g = image.getGraphics();
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, image.getWidth(), image.getHeight());
     }
+    public
 
     @Override
     protected void paintComponent(Graphics g) {
