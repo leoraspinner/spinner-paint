@@ -9,7 +9,6 @@ import static spinner.paint.DrawingComponent.*;
 public class PaintFrame extends JFrame {
 
     private final DrawingComponent canvas = new DrawingComponent();
-    private final JColorChooser colorChooser = new JColorChooser();
     private final String[] toolNames = {DRAW, LINE, ERASER};
 
     public PaintFrame() {
