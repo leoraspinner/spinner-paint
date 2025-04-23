@@ -26,7 +26,7 @@ public class EraserTool implements Tool {
 
     private void erase(Graphics g, int x, int y) {
         g.setColor(Color.WHITE);
-        g.fillRect(x - 5, y - 5, 10, 10);
+        g.fillRect(x - size/2, y - size/2, size, size);
     }
 
     @Override
@@ -37,7 +37,6 @@ public class EraserTool implements Tool {
 
     @Override
     public void released(Graphics g, int x, int y) {
-        g.setColor(Color.WHITE);
         erase(g, x, y);
     }
 }

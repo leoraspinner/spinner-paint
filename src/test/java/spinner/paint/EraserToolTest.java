@@ -44,8 +44,9 @@ class EraserToolTest {
 
         // Then
         verify(g).setColor(Color.WHITE);
-        verify(g).fillRect(95, 195, 10, 10); // (100-5, 200-5, 10, 10)
+        verify(g).fillRect(95, 195, 10, 10);
     }
+
 
     @Test
     void preview() {
