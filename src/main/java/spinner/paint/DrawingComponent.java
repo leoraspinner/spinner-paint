@@ -32,7 +32,7 @@ public class DrawingComponent extends JComponent
         super.paintComponent(g);
         g.drawImage(image, 0, 0, null);
 
-        tool.preview(g);
+        if(tool != null) tool.preview(g);//tool.preview(g);
     }
 
     public void setTool(Tool tool)

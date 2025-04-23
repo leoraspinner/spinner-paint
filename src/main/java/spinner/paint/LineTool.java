@@ -9,6 +9,13 @@ public class LineTool implements Tool
     private int x2;
     private int y2;
 
+    // Added getter methods
+    public int getX1() { return x1; }
+    public int getY1() { return y1; }
+    public int getX2() { return x2; }
+    public int getY2() { return y2; }
+
+
     @Override
     public void pressed(Graphics g, int x, int y) {
         this.x1 = x;

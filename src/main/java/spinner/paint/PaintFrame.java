@@ -2,17 +2,13 @@ package spinner.paint;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 
-public class PaintFrame extends JFrame
-{
+public class PaintFrame extends JFrame {
     private final DrawingComponent canvas = new DrawingComponent();
-    private Tool tool = new LineTool();
+    private final PaintController controller;
 
-    public PaintFrame()
-    {
+    public PaintFrame() {
         setTitle("Paint");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -20,55 +16,38 @@ public class PaintFrame extends JFrame
         setLayout(new BorderLayout());
         add(canvas, BorderLayout.CENTER);
 
-        canvas.setTool(tool);
+        controller = new PaintController(canvas, new LineTool());
 
-        canvas.addMouseMotionListener(new MouseMotionListener() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                Graphics g = canvas.getImage().getGraphics();
-                g.setColor(Color.BLACK);
-                tool.dragged(canvas.getImage().getGraphics(), e.getX(), e.getY());
-                canvas.repaint();
-            }
+        // Tool buttons
+        JPanel toolPanel = new JPanel();
+        addToolButton(toolPanel, "Line", new LineTool());
+        addToolButton(toolPanel, "Pencil", new PencilTool());
+        addToolButton(toolPanel, "Eraser", new EraserTool());
+        add(toolPanel, BorderLayout.NORTH);
 
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                // No action needed
-            }
-        });
-
-        canvas.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-
+        canvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                Graphics g = canvas.getImage().getGraphics();
-                g.setColor(Color.BLACK);
-                tool.pressed(canvas.getImage().getGraphics(), e.getX(), e.getY());
-                canvas.repaint();
+                controller.mousePressed(e);
             }
-
             @Override
             public void mouseReleased(MouseEvent e) {
-                Graphics g = canvas.getImage().getGraphics();
-                g.setColor(Color.BLACK);
-                tool.released(canvas.getImage().getGraphics(), e.getX(), e.getY());
-                canvas.repaint();
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                // No action needed
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                // No action needed
+                controller.mouseReleased(e);
             }
         });
+
+        canvas.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                controller.mouseDragged(e);
+            }
+        });
+    }
+
+    private void addToolButton(JPanel panel, String text, Tool tool) {
+        JButton btn = new JButton(text);
+        btn.addActionListener(e -> controller.setCurrentTool(tool));
+        panel.add(btn);
     }
 
     public static void main(String[] args) {
