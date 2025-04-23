@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 public class PaintController {
     private Tool currentTool;
     private final DrawingComponent canvas;
+    private Color currentColor = Color.BLACK;
 
     public PaintController(DrawingComponent canvas, Tool initialTool) {
         this.canvas = canvas;
@@ -19,7 +20,15 @@ public class PaintController {
     }
 
     public Tool getCurrentTool() {
-        return currentTool;
+        return this.currentTool;
+    }
+
+    public void setCurrentColor(Color color) {
+        this.currentColor = color;
+    }
+
+    public Color getCurrentColor() {
+        return this.currentColor;
     }
 
     public void mousePressed(MouseEvent e) {
@@ -47,6 +56,6 @@ public class PaintController {
     }
 
     private Color getToolColor() {
-        return (currentTool instanceof EraserTool) ? Color.WHITE : Color.BLACK;
+        return (currentTool instanceof EraserTool) ? Color.WHITE : currentColor;
     }
 }
