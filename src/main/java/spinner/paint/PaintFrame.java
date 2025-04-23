@@ -4,80 +4,83 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-import static spinner.paint.DrawingComponent.*;
-
 public class PaintFrame extends JFrame {
-
     private final DrawingComponent canvas = new DrawingComponent();
-    private final String[] toolNames = {DRAW, LINE, ERASER};
+    private final PaintController controller;
+    private final Color[] predefinedColors = {Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW, Color.BLACK};
 
     public PaintFrame() {
         setTitle("Paint");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         setLayout(new BorderLayout());
         add(canvas, BorderLayout.CENTER);
 
-        JPanel toolPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        add(toolPanel, BorderLayout.NORTH);
+        controller = new PaintController(canvas, new LineTool());
 
-        //Basic color buttons
-        Color[] basicColors = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.BLACK};
-        for (Color color : basicColors) {
-            JButton colorButton = new JButton();
-            colorButton.setBackground(color);
-            colorButton.setPreferredSize(new Dimension(25, 25)); // Smaller buttons
-            colorButton.setOpaque(true);
-            colorButton.setBorderPainted(false);
-            colorButton.addActionListener(e -> canvas.setDrawingColor(color));
-            toolPanel.add(colorButton);
+        // Tool buttons
+        JPanel toolPanel = new JPanel();
+        addToolButton(toolPanel, "Line", new LineTool());
+        addToolButton(toolPanel, "Pencil", new PencilTool());
+        addToolButton(toolPanel, "Eraser", new EraserTool());
+
+        // Color buttons
+        for (Color color : predefinedColors) {
+            toolPanel.add(createColorButton(color));
         }
 
         // More Colors button
-        JButton colorChooserButton = new JButton("More Colors");
-        colorChooserButton.addActionListener(this::openColorChooser);
-        toolPanel.add(colorChooserButton);
+        JButton moreColors = new JButton("More Colors");
+        moreColors.addActionListener(this::openColorChooser);
+        toolPanel.add(moreColors);
 
-        // Tool buttons
-        for (String toolName : toolNames) {
-            JButton toolButton = createToolButton(toolName);
-            toolPanel.add(toolButton);
-        }
-
-        JButton clearButton = new JButton("Clear");
-        clearButton.addActionListener(e -> canvas.clearCanvas());
-        toolPanel.add(clearButton);
+        add(toolPanel, BorderLayout.NORTH);
 
         canvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                canvas.handleMousePressed(e.getX(), e.getY());
+                controller.mousePressed(e);
             }
-
             @Override
             public void mouseReleased(MouseEvent e) {
-                canvas.handleMouseReleased(e.getX(), e.getY());
+                controller.mouseReleased(e);
             }
         });
 
-        canvas.addMouseMotionListener(new MouseAdapter() {
+        canvas.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                canvas.handleMouseDragged(e.getX(), e.getY());
+                controller.mouseDragged(e);
             }
         });
     }
 
-    private JButton createToolButton(String toolName) {
-        JButton button = new JButton(toolName);
-        button.addActionListener(e -> canvas.setCurrentTool(toolName));
-        return button;
+    private void addToolButton(JPanel panel, String text, Tool tool) {
+        JButton btn = new JButton(text);
+        btn.addActionListener(e -> controller.setCurrentTool(tool));
+        panel.add(btn);
+    }
+
+    private JButton createColorButton(Color color) {
+        JButton btn = new JButton();
+        btn.setBackground(color);
+        btn.setPreferredSize(new Dimension(30, 30));
+        btn.setOpaque(true);
+        btn.setBorderPainted(false);
+        btn.addActionListener(e -> controller.setCurrentColor(color));
+        return btn;
     }
 
     private void openColorChooser(ActionEvent e) {
-        Color chosenColor = JColorChooser.showDialog(this, "Select Color", canvas.getDrawingColor());
+        Color chosenColor = JColorChooser.showDialog(
+                this,
+                "Select Color",
+                controller.getCurrentColor()
+        );
+
         if (chosenColor != null) {
-            canvas.setDrawingColor(chosenColor);
+            controller.setCurrentColor(chosenColor);
         }
     }
 
