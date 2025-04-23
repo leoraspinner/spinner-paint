@@ -5,7 +5,7 @@ import java.awt.*;
 public class EraserTool implements Tool {
     private int prevX;
     private int prevY;
-    private final int size = 10; // Eraser diameter
+    private final int size = 10;
 
     @Override
     public void pressed(Graphics g, int x, int y) {
@@ -23,9 +23,8 @@ public class EraserTool implements Tool {
         prevY = y;
     }
 
-
     private void erase(Graphics g, int x, int y) {
-        g.fillRect(x - size / 2, y - size / 2, size, size);
+        g.fillRect(x - size/2, y - size/2, size, size);
     }
 
     @Override
@@ -36,6 +35,7 @@ public class EraserTool implements Tool {
 
     @Override
     public void released(Graphics g, int x, int y) {
+        g.setColor(Color.WHITE);
         erase(g, x, y);
     }
 }

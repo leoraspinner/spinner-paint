@@ -12,12 +12,13 @@ class EraserToolTest {
     void pressed() {
         // Given
         EraserTool tool = new EraserTool();
+        Graphics g = mock(Graphics.class);
 
         // When
         tool.pressed(g, 100, 200);
 
         // Then
-        verify(g).setColor(Color.WHITE); // Now only called once
+        verify(g).setColor(Color.WHITE);
         verify(g).fillRect(95, 195, 10, 10);
     }
 
