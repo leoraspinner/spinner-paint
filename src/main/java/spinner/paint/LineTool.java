@@ -44,12 +44,12 @@ public class LineTool implements Tool
 
     @Override
     public void preview(Graphics g) {
-        g.drawLine(x1,y1, x2, y2);
+        g.drawLine(x1, y1, x2, y2);
     }
 
 
     @Override
     public void released(Graphics g, int x, int y) {
-        g.drawLine(this.x1,this.y1,x,y);
+        g.drawLine(this.x1, this.y1, x, y);
     }
 }
