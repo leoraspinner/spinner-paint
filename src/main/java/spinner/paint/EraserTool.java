@@ -24,7 +24,7 @@ public class EraserTool implements Tool {
     }
 
     private void erase(Graphics g, int x, int y) {
-        g.fillRect(x - size/2, y - size/2, size, size);
+        g.fillRect(x - size / 2, y - size / 2, size, size);
     }
 
     @Override
