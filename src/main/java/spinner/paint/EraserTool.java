@@ -31,7 +31,7 @@ public class EraserTool implements Tool {
     @Override
     public void preview(Graphics g) {
         g.setColor(Color.LIGHT_GRAY);
-        g.drawRect(prevX - size/2, prevY - size/2, size, size);
+        g.drawRect(prevX - size / 2, prevY - size /2 , size, size);
     }
 
     @Override

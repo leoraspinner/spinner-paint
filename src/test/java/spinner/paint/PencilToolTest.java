@@ -33,8 +33,8 @@ class PencilToolTest
         PencilTool tool = new PencilTool();
         tool.pressed(g, 50, 100);
 
-        // when
-       tool.dragged(g, 200, 150);
+       // when
+        tool.dragged(g, 200, 150);
 
         // then
         assertEquals(200, tool.getX());
