@@ -18,7 +18,7 @@ public class EraserTool implements Tool {
     @Override
     public void dragged(Graphics g, int x, int y) {
         g.setColor(Color.WHITE);
-        g.drawLine(prevX, prevY, x, y);
+        erase(g, x, y);
         prevX = x;
         prevY = y;
     }

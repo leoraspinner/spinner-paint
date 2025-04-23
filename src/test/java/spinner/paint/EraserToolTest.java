@@ -26,14 +26,19 @@ class EraserToolTest {
     void dragged() {
         // Given
         EraserTool tool = new EraserTool();
-        tool.pressed(g, 50, 100); // Initialize previous position
+        Graphics g = mock(Graphics.class);
 
         // When
-        tool.dragged(g, 60, 110);
+        tool.pressed(g, 50, 100); // Initialize
+        tool.dragged(g, 60, 110); // Trigger
 
         // Then
-        verify(g).drawLine(50, 100, 60, 110); // Verify line drawing
+        verify(g).fillRect(55, 105, 10, 10);
+        verify(g, times(2)).setColor(Color.WHITE); // Called in pressed() and dragged()
     }
+
+
+
 
     @Test
     void released() {
