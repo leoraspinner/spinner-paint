@@ -33,7 +33,7 @@ class PencilToolTest
         PencilTool tool = new PencilTool();
         tool.pressed(g, 50, 100);
 
-       // when
+        // when
         tool.dragged(g, 200, 150);
 
         // then

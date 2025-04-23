@@ -32,7 +32,7 @@ public class LineTool implements Tool
         this.y1 = y;
         this.x2 = x;
         this.y2 = y;
-        g.drawLine(x,y,x,y); 
+        g.drawLine(x, y, x, y);
     }
 
     @Override
