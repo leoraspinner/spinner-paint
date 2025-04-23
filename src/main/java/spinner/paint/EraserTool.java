@@ -9,6 +9,7 @@ public class EraserTool implements Tool {
 
     @Override
     public void pressed(Graphics g, int x, int y) {
+        g.setColor(Color.WHITE);
         prevX = x;
         prevY = y;
         erase(g, x, y);
@@ -36,6 +37,7 @@ public class EraserTool implements Tool {
 
     @Override
     public void released(Graphics g, int x, int y) {
+        g.setColor(Color.WHITE);
         erase(g, x, y);
     }
 }

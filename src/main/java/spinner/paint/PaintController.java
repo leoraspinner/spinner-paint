@@ -33,7 +33,7 @@ public class PaintController {
 
     public void mousePressed(MouseEvent e) {
         Graphics g = canvas.getImage().getGraphics();
-        g.setColor(getToolColor());
+        g.setColor(currentColor);
         currentTool.pressed(g, e.getX(), e.getY());
         g.dispose();
         canvas.repaint();
@@ -41,7 +41,7 @@ public class PaintController {
 
     public void mouseDragged(MouseEvent e) {
         Graphics g = canvas.getImage().getGraphics();
-        g.setColor(getToolColor());
+        g.setColor(currentColor);
         currentTool.dragged(g, e.getX(), e.getY());
         g.dispose();
         canvas.repaint();
@@ -49,13 +49,10 @@ public class PaintController {
 
     public void mouseReleased(MouseEvent e) {
         Graphics g = canvas.getImage().getGraphics();
-        g.setColor(getToolColor());
+        g.setColor(currentColor);
         currentTool.released(g, e.getX(), e.getY());
         g.dispose();
         canvas.repaint();
     }
 
-    private Color getToolColor() {
-        return (currentTool instanceof EraserTool) ? Color.WHITE : currentColor;
-    }
 }
