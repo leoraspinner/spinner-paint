@@ -14,11 +14,11 @@ class EraserToolTest {
         EraserTool tool = new EraserTool();
 
         // When
-        tool.pressed(g, 50, 100);
+        tool.pressed(g, 100, 200);
 
         // Then
-        verify(g).setColor(Color.WHITE);
-        verify(g).fillRect(45, 95, 10, 10); // (50-5, 100-5, 10, 10)
+        verify(g).setColor(Color.WHITE); // Now only called once
+        verify(g).fillRect(95, 195, 10, 10);
     }
 
     @Test

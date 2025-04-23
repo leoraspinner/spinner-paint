@@ -25,7 +25,6 @@ public class EraserTool implements Tool {
 
 
     private void erase(Graphics g, int x, int y) {
-        g.setColor(Color.WHITE);
         g.fillRect(x - size / 2, y - size / 2, size, size);
     }
 
