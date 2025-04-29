@@ -21,7 +21,7 @@ public class DrawingComponent extends JComponent
 
     public DrawingComponent()
     {
-        Graphics g = image.getGraphics();
+        Graphics2D g = (Graphics2D) image.getGraphics();
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, image.getWidth(), image.getHeight());
     }
@@ -30,9 +30,12 @@ public class DrawingComponent extends JComponent
     protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        g.drawImage(image, 0, 0, null);
 
-        tool.preview(g);
+        Graphics2D g2 = (Graphics2D) g;
+
+        g2.drawImage(image, 0, 0, null);
+
+        tool.preview(g2);
     }
 
     public void setTool(Tool tool)

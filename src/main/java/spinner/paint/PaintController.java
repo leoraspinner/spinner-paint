@@ -2,6 +2,7 @@ package spinner.paint;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 public class PaintController {
     private Tool currentTool;
@@ -32,15 +33,16 @@ public class PaintController {
     }
 
     public void mousePressed(MouseEvent e) {
-        Graphics g = canvas.getImage().getGraphics();
+        BufferedImage image = canvas.getImage();
+        Graphics2D g = (Graphics2D) image.getGraphics();
         g.setColor(currentColor);
-        currentTool.pressed(g, e.getX(), e.getY());
+        currentTool.pressed(image, g, e.getX(), e.getY());
         g.dispose();
         canvas.repaint();
     }
 
     public void mouseDragged(MouseEvent e) {
-        Graphics g = canvas.getImage().getGraphics();
+        Graphics2D g = (Graphics2D) canvas.getImage().getGraphics();
         g.setColor(currentColor);
         currentTool.dragged(g, e.getX(), e.getY());
         g.dispose();
@@ -48,7 +50,7 @@ public class PaintController {
     }
 
     public void mouseReleased(MouseEvent e) {
-        Graphics g = canvas.getImage().getGraphics();
+        Graphics2D g = (Graphics2D) canvas.getImage().getGraphics();
         g.setColor(currentColor);
         currentTool.released(g, e.getX(), e.getY());
         g.dispose();

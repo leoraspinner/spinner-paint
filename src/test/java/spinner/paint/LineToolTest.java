@@ -1,38 +1,45 @@
 package spinner.paint;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 public class LineToolTest {
+    private BufferedImage image;
+
+    @BeforeEach
+    void setUp() {
+        image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_RGB);
+    }
 
     @Test
     void basicLineDrawing() {
         // Given
         LineTool tool = new LineTool();
-        BufferedImage img = new BufferedImage(800, 600, BufferedImage.TYPE_INT_RGB);
-        Graphics g = img.getGraphics();
+        Graphics2D g = (Graphics2D) image.getGraphics();
         g.setColor(Color.BLACK);
 
         // When
-        tool.pressed(g, 10, 10);
+        tool.pressed(image, g, 10, 10);
         tool.dragged(g, 30, 40);
         tool.released(g, 30, 40);
 
         // Then
-        assertEquals(Color.BLACK.getRGB(), img.getRGB(10, 10));
-        assertEquals(Color.BLACK.getRGB(), img.getRGB(30, 40));
+        assertEquals(Color.BLACK.getRGB(), image.getRGB(10, 10));
+        assertEquals(Color.BLACK.getRGB(), image.getRGB(30, 40));
     }
 
     @Test
     void coordinatesUpdateOnDrag() {
         // Given
         LineTool tool = new LineTool();
-        Graphics dummy = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB).getGraphics();
+        Graphics2D dummy = (Graphics2D) new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB).getGraphics();
 
         // When
-        tool.pressed(dummy, 5, 5);
+        tool.pressed(image, dummy, 5, 5);
         tool.dragged(dummy, 15, 25);
 
         // Then
