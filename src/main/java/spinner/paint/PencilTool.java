@@ -5,8 +5,8 @@ import java.awt.image.BufferedImage;
 
 public class PencilTool implements Tool
 {
-    private  int x;
-    private  int y;
+    private int x;
+    private int y;
 
     @Override
     public void pressed(BufferedImage image, Graphics2D g, int x, int y)

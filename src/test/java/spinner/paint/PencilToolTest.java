@@ -42,7 +42,7 @@ class PencilToolTest
         tool.pressed(image, g, 50, 100);
 
         // when
-        tool.dragged( g, 200, 150);
+        tool.dragged(g, 200, 150);
 
         // then
         assertEquals(200, tool.getX());
@@ -57,7 +57,7 @@ class PencilToolTest
         PencilTool tool = new PencilTool();
 
         //when
-        tool.released( g, 100, 200);
+        tool.released(g, 100, 200);
 
         //then
         verifyNoMoreInteractions(g);

@@ -25,15 +25,15 @@ public class BucketFillTool implements Tool
 
     }
 
-    private void floodFill(int x, int y){
+    private void floodFill(int x, int y) {
         //boundary check
-        if(x < 0 || y < 0 || x >= image.getWidth() || y >= image.getHeight()){
+        if (x < 0 || y < 0 || x >= image.getWidth() || y >= image.getHeight()) {
             return;
         }
 
         //Color check
         int currentColor = image.getRGB(x, y);
-        if(currentColor != targetColor.getRGB() || currentColor == fillColor.getRGB()){
+        if (currentColor != targetColor.getRGB() || currentColor == fillColor.getRGB()) {
             return;
         }
 
@@ -41,10 +41,10 @@ public class BucketFillTool implements Tool
         image.setRGB(x, y, fillColor.getRGB());
 
         //recursion for 4 directions
-        floodFill(x+1, y); //right
-        floodFill(x-1, y); //left
-        floodFill(x, y+1); //down
-        floodFill(x, y-1); //up
+        floodFill(x + 1, y); //right
+        floodFill(x - 1, y); //left
+        floodFill(x, y + 1); //down
+        floodFill(x, y - 1); //up
     }
 
     private void canvasRepaint()

@@ -28,7 +28,10 @@ class EraserToolTest {
 
         // Then
         verify(g).setColor(Color.WHITE);
-        verify(g).fillRect(95, 195, 10, 10);
+        verify(g).setStroke(argThat(stroke ->
+                stroke instanceof BasicStroke && ((BasicStroke) stroke).getLineWidth() == 10f
+        ));
+        verify(g).drawLine(100, 200, 100, 200);
     }
 
     @Test
@@ -38,13 +41,13 @@ class EraserToolTest {
         EraserTool tool = new EraserTool();
 
         // When
-        tool.pressed(image, g, 50, 100);
-        tool.dragged(g, 60, 110);
+        tool.pressed(null, g, 100, 200);
+        tool.dragged(g, 110, 210);
 
         // Then
         verify(g, times(2)).setColor(Color.WHITE);  // pressed() + dragged()
-        verify(g).fillRect(45, 95, 10, 10);  // Initial press
-        verify(g).fillRect(55, 105, 10, 10); // Drag position}
+        verify(g, atLeastOnce()).setStroke(any(BasicStroke.class));
+        verify(g).drawLine(100, 200, 110, 210);
     }
 
     @Test
@@ -53,11 +56,13 @@ class EraserToolTest {
         EraserTool tool = new EraserTool();
 
         // When
-        tool.released(g, 100, 200);
+        tool.pressed(null, g, 100, 200);
+        tool.released(g, 120, 220);
 
         // Then
-        verify(g).setColor(Color.WHITE);
-        verify(g).fillRect(95, 195, 10, 10);
+        verify(g, times(2)).setColor(Color.WHITE);
+        verify(g, atLeastOnce()).setStroke(any(BasicStroke.class));
+        verify(g).drawLine(100, 200, 120, 220);
     }
 
 
@@ -72,6 +77,6 @@ class EraserToolTest {
 
         // Then
         verify(g).setColor(Color.LIGHT_GRAY);
-        verify(g).drawRect(25, 35, 10, 10); // (30-5, 40-5, 10, 10)
+        verify(g).drawOval(25, 35, 10, 10);  // (30-5, 40-5, 10, 10)
     }
 }
