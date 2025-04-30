@@ -10,15 +10,8 @@ import static org.mockito.Mockito.*;
 
 class PencilToolTest
 {
-    private BufferedImage image;
-    private Graphics2D g;
-
-    @BeforeEach
-    void setUp() {
-        image = new BufferedImage(500, 500, BufferedImage.TYPE_INT_ARGB);
-        g = mock(Graphics2D.class); // Initialize the mock here
-    }
-
+    private BufferedImage  image = new BufferedImage(500, 500, BufferedImage.TYPE_INT_ARGB);
+    private Graphics2D g = mock(Graphics2D.class);
 
     @Test
     void pressed() {

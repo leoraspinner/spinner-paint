@@ -18,9 +18,8 @@ public class BucketFillTool implements Tool
         this.targetColor = new Color(image.getRGB(x, y));
         this.visited = new boolean[image.getWidth()][image.getHeight()];
 
-        //flood fill *What is this?
+        //flood fill
         floodFill(x, y);
-        canvasRepaint();
 
 
     }

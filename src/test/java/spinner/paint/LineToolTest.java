@@ -8,12 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 public class LineToolTest {
-    private BufferedImage image;
-
-    @BeforeEach
-    void setUp() {
-        image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_RGB);
-    }
+    private BufferedImage image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_RGB);
 
     @Test
     void basicLineDrawing() {
