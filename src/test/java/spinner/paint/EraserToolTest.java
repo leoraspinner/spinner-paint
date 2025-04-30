@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import static org.mockito.Mockito.*;
 
 class EraserToolTest {
-    private BufferedImage image= new BufferedImage(500, 500, BufferedImage.TYPE_INT_ARGB);
+    private BufferedImage image = new BufferedImage(500, 500, BufferedImage.TYPE_INT_ARGB);
     private Graphics2D g = mock(Graphics2D.class);
 
 
