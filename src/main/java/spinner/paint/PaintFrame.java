@@ -24,6 +24,7 @@ public class PaintFrame extends JFrame {
         addToolButton(toolPanel, "Line", new LineTool());
         addToolButton(toolPanel, "Pencil", new PencilTool());
         addToolButton(toolPanel, "Eraser", new EraserTool());
+        addToolButton(toolPanel, "Bucket", new BucketFillTool());
 
         // Color buttons
         for (Color color : predefinedColors) {

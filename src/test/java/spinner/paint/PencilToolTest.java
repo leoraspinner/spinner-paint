@@ -1,26 +1,27 @@
 package spinner.paint;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class PencilToolTest
 {
-    private Graphics g = mock();
+    private BufferedImage  image = new BufferedImage(500, 500, BufferedImage.TYPE_INT_ARGB);
+    private Graphics2D g = mock(Graphics2D.class);
 
     @Test
-    void pressed()
-    {
-        // given
+    void pressed() {
+        // Given
         PencilTool tool = new PencilTool();
 
-        // when
-        tool.pressed(g, 50, 100);
+        // When
+        tool.pressed(image, g, 50, 100);
 
-        // then
+        // Then
         assertEquals(50, tool.getX());
         assertEquals(100, tool.getY());
         verify(g).drawLine(50, 100, 50, 100);
@@ -31,7 +32,7 @@ class PencilToolTest
     {
         // given
         PencilTool tool = new PencilTool();
-        tool.pressed(g, 50, 100);
+        tool.pressed(image, g, 50, 100);
 
         // when
         tool.dragged(g, 200, 150);
